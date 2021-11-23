@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contatos :: Criar grupo</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+            <li><a href="/exibirContato">Cadastrar Contatos</a></li>
+            <li><a href="/listarContatos">Listar Contatos</a></li>
+            <li><a href="/criargrupo">Criar grupo</a></li>
+            <li>><a href="/listarGrupo">Listar grupo</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+
+            </div>
+            <div class="col-6">
+                <div>
+                    <form action="/salvargrupo" method="POST">
+                        <div style="margin-bottom: 30px;">
+                            <label for="exampleFormControlInput1" class="form-label">Nome do grupo</label>
+                            <input type="text" class="form-control" name="nomedogrupo" id="exampleFormControlInput1"
+                            placeholder="Nome do grupo" style="width: 40%;"   required>
+                        </div>
+    
+                        <div style="margin-bottom: 30px;">
+                            <label for="">Visibilidade</label>
+                            <div style="display: flex; justify-content: space-between; width: 15%;">
+                                <div class="form-check form-check-inline">
+                                	<SELECT name="visibilidade">
+								        <option th:each="vis: ${enum_visibilidade}"
+								          th:value="${vis}"
+								          th:text="${vis}"
+								        >
+                                  </div>
+                            </div>
+                        
+                        </div>
+    
+                        <div>
+                            <label for="">Data de expiração</label>
+                            <div>
+                                <input type="date" name="dataexpiracao" style="border: none; border-bottom: 1px solid black; width: 40%;">
+                            </div>
+                           
+                        </div>
+                        <div  style="margin-top: 30px;">
+                            <button type="submit" class="btn btn-success">Criar grupo</button>
+                            
+                        </div>
+                    </form>
+                    
+                    
+
+
+                </div>
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
