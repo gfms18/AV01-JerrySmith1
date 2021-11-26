@@ -17,6 +17,7 @@ public class Contato {
 	private String telefone;
 	private String email;
 	private String[] apps;
+	private String grupo;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dataNascimento;
@@ -87,6 +88,12 @@ public class Contato {
 		return "Contato [nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", apps="
 				+ Arrays.toString(apps) + "  , dataNascimento=" + dataNascimento + ", estado="
 				+ estado + "]";
+	}
+	public String getGrupo() {
+		return grupo;
+	}
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
 	}
 	
 	
