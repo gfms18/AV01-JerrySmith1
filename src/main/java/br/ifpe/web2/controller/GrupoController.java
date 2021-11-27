@@ -1,49 +1,55 @@
 package br.ifpe.web2.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
-import br.ifpe.web2.model.Contato;
+
 import br.ifpe.web2.model.Grupo;
-import br.ifpe.web2.model.VISIBILIDADE;
-import br.ifpe.web2.service.GrupoDAO;
+
+import br.ifpe.web2.service.GrupoService;
 
 @Controller
 public class GrupoController {
 	@Autowired
-	private GrupoDAO grupoDAO;
-	private Object grupo;
-	@GetMapping("/criargrupo")
-	public String Criargrupo() {
-		return "criargrupo";
-	}
+	GrupoService grupoService;
 	
-	@PostMapping("/salvargrupo") 
-		public String Salvargrupo(Grupo grupo) {
-		System.out.println(grupo.getNomedogrupo());
-		System.out.println(grupo.getDataexpiracao());
-		this.grupoDAO.save(grupo);
-		return "index";
-			
+	
+	@GetMapping("/criargrupo")
+	public String exibirForm(Grupo grupo) {
+		
+		return "criargrupo";
 		
 	}
 	
-	
+	@PostMapping("/salvarGrupo")
+	public String salvarGrupo(Grupo grupo) {
+		grupoService.salvarGrupo(grupo);
+		return "redirect:/listarGrupo";
+	}
 	
 	@GetMapping("/listarGrupo")
 	public String listarGrupo(Model model) {
-		//model.addAttribute("lista", contatos);
-		model.addAttribute("list", grupoDAO.findAll());
+		model.addAttribute("lista",grupoService.listarGrupo());
 		return "grupo-list";
 	}
 	
-	@ModelAttribute("enum_visibilidade")
-    public VISIBILIDADE[] getEnumvisibilidade() {
-        return VISIBILIDADE.values();
-        
-    }
+	@GetMapping("/removerGrupo")
+	public String removerGrupo(Integer id) {
+		grupoService.removerGrupo(id);
+		return "redirect:/grupo-list";
+	}
+	
+	@GetMapping("/editarGrupo")
+	public String editarGrupo(Integer id, Model model) {
+		model.addAttribute("Grupo", grupoService.buscarGrupo(id));
+		return "criargrupo";
+	}
+
+	
+	
 }

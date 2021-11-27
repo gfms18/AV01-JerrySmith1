@@ -10,59 +10,55 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.ifpe.web2.model.Contato;
+import br.ifpe.web2.model.Grupo;
+import br.ifpe.web2.service.ContatoService;
 import br.ifpe.web2.service.ContatosDAO;
+import br.ifpe.web2.service.GrupoService;
 
 @Controller
 public class ContatoController {
 	@Autowired
-	private ContatosDAO contatosDAO;
+	ContatoService contatoService;
+	@Autowired
+	GrupoService grupoService;
 	
-	private List<Contato> contatos = new ArrayList<>();
+	
 
 	@GetMapping("/exibirContato")
-	public String exibirForm(Contato contato) {
+	public String exibirForm(Contato contato, Model model) {
+		List<Grupo> listaGrupo = grupoService.pegarGrupos();
+		model.addAttribute("listaDeGrupo", listaGrupo);
 		return "contatos-form";
+		
 	}
+	
+	
 	
 	@PostMapping("/salvarContato")
 	public String salvarContato(Contato contato) {
-		this.contatos.remove(contato);
-		this.contatos.add(contato);
-		System.out.println(contato);
-		this.contatosDAO.save(contato);
+		contatoService.salvarContato(contato);
 		return "redirect:/listarContatos";
 	}
 	
 	@GetMapping("/listarContatos")
 	public String listarContatos(Model model) {
 		//model.addAttribute("lista", contatos);
-		model.addAttribute("lista", contatosDAO.findAll());
+		model.addAttribute("lista",contatoService.listarContato());
 		return "contatos-list";
 	}
 	
 	@GetMapping("/removerContato")
-	public String removerContato(String email) {
-		Contato contatoParaRemover = null;
-		for(Contato cont : this.contatos) {
-			if(cont.getEmail().equals(email)) {
-				contatoParaRemover = cont;
-			}
-		}
-		if (contatoParaRemover != null) {
-			this.contatos.remove(contatoParaRemover);
-		}
+	public String removerContato(Integer id) {
+		contatoService.removerContato(id);
 		return "redirect:/listarContatos";
 	}
 	
 	@GetMapping("/editarContato")
-	public String editarContato(String email, Model model) {
-		Contato contatoParaEditar = null;
-		for(Contato cont : this.contatos) {
-			if(cont.getEmail().equals(email)) {
-				contatoParaEditar = cont;
-			}
-		}
-		model.addAttribute("contato", contatoParaEditar);
+	public String editarContato(Integer id, Model model) {
+		model.addAttribute("cont", contatoService.buscarContato(id));
+		model.addAttribute("listaDeGrupo", grupoService.pegarGrupos());
 		return "contatos-form";
 	}
+	
+	
 }

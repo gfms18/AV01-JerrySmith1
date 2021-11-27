@@ -3,25 +3,36 @@ package br.ifpe.web2.model;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Contato {
 	
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String nome;
 	private String telefone;
 	private String email;
+	@ElementCollection
+	@OrderColumn
 	private String[] apps;
-	private String grupo;
+	@ManyToOne
+	private Grupo grupo;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dataNascimento;
-	private String estado;
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
 	public String getNome() {
 		return nome;
 	}
@@ -54,12 +65,7 @@ public class Contato {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,17 +89,31 @@ public class Contato {
 			return false;
 		return true;
 	}
+	
+
+	public Integer getId() {
+		return id;
+	}
 	@Override
 	public String toString() {
-		return "Contato [nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", apps="
-				+ Arrays.toString(apps) + "  , dataNascimento=" + dataNascimento + ", estado="
+		return "Contato [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", apps="
+				+ Arrays.toString(apps) + ", grupo=" + grupo + ", dataNascimento=" + dataNascimento + ", estado="
 				+ estado + "]";
 	}
-	public String getGrupo() {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Grupo getGrupo() {
 		return grupo;
 	}
-	public void setGrupo(String grupo) {
+	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
+	}
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 	
 	

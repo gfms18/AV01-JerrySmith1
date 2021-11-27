@@ -28,12 +28,14 @@
 				<th>Data de expição</th>
 				<th>Acões</th>
 			</tr>
-			<tr th:each="grp : ${list}">
+			<tr th:each="grp : ${lista}">
 				<td th:text="${grp.nomedogrupo}"></td>
 				<td th:text="${grp.visibilidade}"></td>
 				<td th:text="${grp.dataexpiracao}"></td>
-				
+				<td><a th:href="@{/editarGrupo(id=${grp.id})}">Editar</a>&nbsp;&nbsp;
+					<a th:href="@{/removerGrupo(id=${grp.id})}">Remover</a></td>
 			</tr>
+			
 		</table>
 		<hr />
 	</div>

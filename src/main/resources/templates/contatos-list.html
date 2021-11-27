@@ -32,8 +32,8 @@
 				<td th:text="${cont.nome}"></td>
 				<td th:text="${cont.telefone}"></td>
 				<td th:text="${cont.email}">
-				<td><a th:href="@{/editarContato(email=${cont.email})}">Editar</a>&nbsp;&nbsp;
-					<a th:href="@{/removerContato(email=${cont.email})}">Remover</a></td>
+				<td><a th:href="@{/editarContato(id=${cont.id})}">Editar</a>&nbsp;&nbsp;
+					<a th:href="@{/removerContato(id=${cont.id})}">Remover</a></td>
 					<!-- http://localhost:8080/removerContato?email=gloria.maria@gmail.com -->
 			</tr>
 		</table>

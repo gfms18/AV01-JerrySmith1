@@ -25,10 +25,11 @@
             </div>
             <div class="col-6">
                 <div>
-                    <form action="/salvargrupo" method="POST">
+                    <form action="/salvarGrupo" th:object = "${grupo}" method="POST">
+                    <input type="hidden" th:field="*{id}"  th:value="id">
                         <div style="margin-bottom: 30px;">
                             <label for="exampleFormControlInput1" class="form-label">Nome do grupo</label>
-                            <input type="text" class="form-control" name="nomedogrupo" id="exampleFormControlInput1"
+                            <input type="text" th:field = "*{nomedogrupo}" class="form-control" name="nomedogrupo" id="exampleFormControlInput1"
                             placeholder="Nome do grupo" style="width: 40%;"   required>
                         </div>
     
@@ -36,13 +37,14 @@
                             <label for="">Visibilidade</label>
                             <div style="display: flex; justify-content: space-between; width: 15%;">
                                 <div class="form-check form-check-inline">
-                                	<SELECT name="visibilidade">
-								        <option th:each="vis: ${enum_visibilidade}"
-								          th:value="${vis}"
-								          th:text="${vis}
-								        </option>
-								      </select>
+                                	<select required class="form-control" id="visibilidade"
+										th:field="*{visibilidade}">
+										<option th:value="''">Selecione</option>
+										<option th:value="PRIVADO">Privado</option>
+										<option th:value="PUBLICO">Público</option>
+									</select>
                                   </div>
+                                  
                             </div>
                         
                         </div>
@@ -50,7 +52,7 @@
                         <div>
                             <label for="">Data de expiração</label>
                             <div>
-                                <input type="date" name="dataexpiracao" style="border: none; border-bottom: 1px solid black; width: 40%;">
+                                <input type="date" th:field = "*{dataExpiracao}" name="dataExpiracao" style="border: none; border-bottom: 1px solid black; width: 40%;" required>
                             </div>
                            
                         </div>
