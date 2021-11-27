@@ -23,6 +23,7 @@
 
 	<div class="container col-sm-12 col-md-6 col-md-offset-2" >
 		<form action="/salvarContato" th:object="${contato}" method="post">
+		 <input type="hidden" th:field="*{id}"  th:value="id">
 			<div class="form-group">
 				<label for="nome">Nome</label> <input type="text" th:field="*{nome}"
 					class="form-control" id="nome" placeholder="Nome do contato">
@@ -48,9 +49,9 @@
 					th:field="*{apps}" th:value="Slack" />
 					<label class="form-check-label">Slack</label>
 			</div>
-			<div th:each="grupoModel : ${listaDeGrupo}">
-						<input type="radio" class="form-check-input" th:field="*{grupo.id}" th:value="${grupoModel.id}"/>
-						<label th:text="${grupoModel.nomedogrupo}" class="form-check-label"> </label>
+			<div th:each="grupo : ${listaDeGrupo}">
+						<input type="radio" class="form-check-input" th:field="*{grupo.id}" th:value="${grupo.id}"/>
+						<label th:text="${grupo.nomedogrupo}" class="form-check-label"> </label>
 					</div>
 			<div class="form-group">
 				<label for="data">Data de Nascimento</label> <input type="date" class="form-control"

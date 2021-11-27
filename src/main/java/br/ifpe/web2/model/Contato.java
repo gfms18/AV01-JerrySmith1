@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,6 +28,7 @@ public class Contato {
 	@OrderColumn
 	private String[] apps;
 	@ManyToOne
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Grupo grupo;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
